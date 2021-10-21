@@ -14,7 +14,7 @@ It's not a Laravel adaptation of SOLID principles, patterns etc. Here you'll fin
 
 [Don't repeat yourself (DRY)](#dont-repeat-yourself-dry)
 
-[Prefer to use Eloquent over using Query Builder and raw SQL queries. Prefer collections over arrays](#prefer-to-use-eloquent-over-using-query-builder-and-raw-sql-queries-prefer-collections-over-arrays)
+[Prefer to use Eloquent over using Query Builder and raw SQL queries. Prefer collections to arrays](#prefer-to-use-eloquent-over-using-query-builder-and-raw-sql-queries-prefer-collections-to-arrays)
 
 [Mass assignment](#mass-assignment)
 
@@ -22,7 +22,7 @@ It's not a Laravel adaptation of SOLID principles, patterns etc. Here you'll fin
 
 [Chunk data for data-heavy tasks](#chunk-data-for-data-heavy-tasks)
 
-[Comment your code, but prefer descriptive method and variable names over comments](#comment-your-code-but-prefer-descriptive-method-and-variable-names-over-comments)
+[Prefer descriptive method and variable names over comments](#prefer-descriptive-method-and-variable-names-over-comments)
 
 [Do not put JS and CSS in Blade templates and do not put any HTML in PHP classes](#do-not-put-js-and-css-in-blade-templates-and-do-not-put-any-html-in-php-classes)
 
@@ -39,6 +39,16 @@ It's not a Laravel adaptation of SOLID principles, patterns etc. Here you'll fin
 [Do not get data from the `.env` file directly](#do-not-get-data-from-the-env-file-directly)
 
 [Store dates in the standard format. Use accessors and mutators to modify date format](#store-dates-in-the-standard-format-use-accessors-and-mutators-to-modify-date-format)
+
+[Use Invokable Controller](#use-invokable-controller)
+
+[Use Resource Controller](#use-resource-controller)
+
+[Debugging / Performance](#debugging--performance)
+
+[Consider using View Models](#consider-using-view-models)
+
+[Consider using Laravel Query Builder package](#consider-using-laravel-query-builder-package)
 
 [Other good practices](#other-good-practices)
 
@@ -276,7 +286,7 @@ public function getArticles(): Collection
 
 [🔝 Back to contents](#contents)
 
-### **Prefer to use Eloquent over using Query Builder and raw SQL queries. Prefer collections over arrays**
+### **Prefer to use Eloquent over using Query Builder and raw SQL queries. Prefer collections to arrays**
 
 Eloquent allows you to write readable and maintainable code. Also, Eloquent has great built-in tools like soft deletes, events, scopes etc.
 
@@ -665,7 +675,7 @@ Route::prefix('/forecasts')->group(function () {
     Route::post('/', [ForecastsController::class, 'store'])->name('forecasts.store');
     Route::put('/{forecast}', [ForecastsController::class, 'update'])->name('forecasts.update');
     Route::delete('/{forecast}', [ForecastsController::class, 'delete'])->name('forecasts.delete');
-*});
+});
 ```
 
 Better:
@@ -679,24 +689,36 @@ Route::resource('forecasts', ForecastsController::class)->except(['create', 'sho
 
 [🔝 Back to contents](#contents)
 
-## Debugging / Performance
+### Debugging / Performance
 
-Use telescope or laravel debugbar
+Use [telescope](https://laravel.com/docs/8.x/telescope) or [laravel debugbar](https://github.com/barryvdh/laravel-debugbar)
 
-## Follow the standards
+[🔝 Back to contents](#contents)
 
-Refer to documentation
+### **Consider using View Models**
+
+If you need to prepare the data for the view : [Spatie View Models](https://github.com/spatie/laravel-view-models)
+
+[🔝 Back to contents](#contents)
+
+### **Consider using Laravel Query Builder package**
+
+If you need to filter or sort your queries. [Laravel Query Builder](https://spatie.be/docs/laravel-query-builder/v3/introduction)
+
+[🔝 Back to contents](#contents)
 
 ### **Other good practices**
 
-Avoid using patterns and tools that are alien to Laravel and similar frameworks (i.e. RoR, Django). If you like Symfony (or Spring) approach for building apps, it's a good idea to use these frameworks instead.
+Refer to documentation
 
-Use in-memory DB for testing.
+Avoid using patterns and tools that are alien to Laravel and similar frameworks (i.e. RoR, Django). If you like Symfony (or Spring) approach for building apps, it's a good idea to use these frameworks instead.
 
 Do not override standard framework features to avoid problems related to updating the framework version and many other issues.
 
 Use modern PHP syntax where possible, but don't forget about readability.
 
 Avoid using View Composers and similar tools unless you really know what you're doing. In most cases, there is a better way to solve the problem.
+
+Use latest versions when possible : Laravel, packages and PHP.
 
 [🔝 Back to contents](#contents)
